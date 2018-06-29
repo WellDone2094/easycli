@@ -5,6 +5,7 @@ class Command():
     def __init__(self, function, argumentInference=False):
         self.groups = []
         self.name = None
+        self.description = None
         self.f = function
         self.arguments = []
         self.arguments_map = {}
@@ -66,8 +67,13 @@ class Command():
     def build_parse_tree(self):
         pass
 
-    def print(self):
-        print(self)
+    def print_help(self):
+        line = '    ' * len(self.groups) + self.name + ' '
+        for arg in self.arguments:
+            line += arg.name if arg.required else '[' + arg.name + ']'
+            line += ' '
+
+        print(line)
 
     def __str__(self):
         return '.'.join(self.groups + [self.name])

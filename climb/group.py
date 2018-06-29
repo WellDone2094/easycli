@@ -42,16 +42,27 @@ class Group():
 
     def run(self, args):
         if len(args) == 0:
-            print('available commands', list(self.parse_tree.keys()))
-            return
+            self.print_help()
+            exit(1)
 
         if args[0] not in self.parse_tree:
-            print('invalid argument')
-            return
+            exit_code = 0
+            if args[0] != '-h' and args[0] != '--help':
+                print("Invalid argument '{}'".format(args[0]))
+                exit_code = 1
+
+            self.print_help()
+            exit(exit_code)
 
         self.parse_tree[args[0]].run(args[1:])
 
+    def print_help(self):
+        if self.name is not None:
+            print('    ' * (self.lv - 1) + self.name)
+        for command in self.parse_tree.values():
+            command.print_help()
+
     def print(self):
-        print('\t' * self.lv + (self.name or 'BaseGroup'))
+        print('\t' * (self.lv - 1) + (self.name or 'BaseGroup'))
         for g in self.parse_tree.values():
             g.print()
