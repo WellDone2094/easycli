@@ -1,4 +1,9 @@
+"""Climb CLI arguments."""
+
+
 class Argument():
+    """Argument class."""
+
     def __init__(self,
                  name,
                  shortName=None,
@@ -6,7 +11,25 @@ class Argument():
                  required=False,
                  variable=None,
                  default=None):
+        """Constructor.
 
+        Parameters
+        ----------
+        name: str
+            Argument name without '--'.
+        shortName: str
+            Single character argument, default None.
+        argType: type
+            Argument type, default str.
+        required: bool
+            If True the argument is required.
+        variable: str
+            Name of the argument inside the function, if None `name` will be
+            used. Default None.
+        default: any
+            Default value to use if argument is not required. Default None
+
+        """
         assert (shortName is None or len(shortName) == 1)
 
         self.name = '--' + name if len(name) > 1 else '-' + name
@@ -18,9 +41,18 @@ class Argument():
         self.value = None
 
     def __eq__(self, arg):
+        """Equality operator."""
         return arg.name == self.name or self.variable == arg.variable
 
     def set_value(self, value):
+        """Set argument value.
+
+        Parameters
+        ----------
+        value: str
+            value read from sys.argv
+
+        """
         try:
             self.value = self.argType(value)
         except ValueError as e:

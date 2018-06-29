@@ -1,18 +1,40 @@
+"""CLI command group."""
 from climb.exceptions import CommandNameConflictException
 from climb.command import Command
 
 
 class Group():
+    """Group."""
+
     def __init__(self, name=None, lv=0):
+        """Constructor.
+
+        Parameters
+        ----------
+        name: str
+            Group name.
+        lv: int
+            Group level inside CLI parse tree. Default 0.
+
+        """
         self.name = name
         self.parse_tree = {}
         self.lv = lv
         self.commands = set()
 
     def add_command(self, cmd):
+        """Add CLI command.
+
+        Parameters
+        ---------
+        cmd: climb.command.Command
+            CLI command.
+
+        """
         self.commands.add(cmd)
 
     def build_parse_tree(self):
+        """Create parse tree from command added to the group."""
         for cmd in self.commands:
             # add command to tree
             if len(cmd.groups) == self.lv:
@@ -41,6 +63,14 @@ class Group():
             group.build_parse_tree()
 
     def run(self, args):
+        """Parse command.
+
+        Parameters
+        ----------
+        args: list
+            Argument read from sys.argv
+
+        """
         if len(args) == 0:
             self.print_help()
             exit(1)
@@ -57,13 +87,9 @@ class Group():
         self.parse_tree[args[0]].run(args[1:])
 
     def print_help(self):
+        """Print help."""
         if self.name is not None:
             print('    ' * (self.lv - 1) + self.name)
         for command in self.parse_tree.values():
             command.print_help()
         print()
-
-    def print(self):
-        print('\t' * (self.lv - 1) + (self.name or 'BaseGroup'))
-        for g in self.parse_tree.values():
-            g.print()

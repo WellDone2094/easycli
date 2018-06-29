@@ -26,7 +26,6 @@ class Command():
     def parse_args(self, args):
         arg_index = 0
         allow_positional = True
-        out_args = {}
         while arg_index < len(args):
             arg = args[arg_index]
 
