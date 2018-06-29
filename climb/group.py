@@ -61,6 +61,7 @@ class Group():
             print('    ' * (self.lv - 1) + self.name)
         for command in self.parse_tree.values():
             command.print_help()
+        print()
 
     def print(self):
         print('\t' * (self.lv - 1) + (self.name or 'BaseGroup'))

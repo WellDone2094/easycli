@@ -70,8 +70,10 @@ class Command():
     def print_help(self):
         line = '    ' * len(self.groups) + self.name + ' '
         for arg in self.arguments:
-            line += arg.name if arg.required else '[' + arg.name + ']'
-            line += ' '
+            if arg.required:
+                line += '{}=<{}> '.format(arg.name, arg.argType.__name__)
+            else:
+                line += '[{}]=<{}> '.format(arg.name, arg.argType.__name__)
 
         print(line)
 
