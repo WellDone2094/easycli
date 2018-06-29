@@ -61,6 +61,11 @@ class Command():
         self.parse_args(args)
         function_args = {arg.variable: arg.value for arg in self.arguments}
 
+        for arg in self.arguments:
+            if arg.required and not arg.isUsed:
+                print('Missing {}'.format(arg.name))
+                exit(1)
+
         self.f(**function_args)
 
     def build_parse_tree(self):

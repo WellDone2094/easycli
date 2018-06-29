@@ -36,9 +36,9 @@ class Argument():
         self.shortName = shortName if shortName is None else '-' + shortName
         self.argType = argType
         self.variable = variable or name
-        self.default = default
-        self.required = required or self.default is None
-        self.value = None
+        self.required = required or default is None
+        self.value = default
+        self.isUsed = False
 
     def __eq__(self, arg):
         """Equality operator."""
@@ -55,6 +55,7 @@ class Argument():
         """
         try:
             self.value = self.argType(value)
+            self.isUsed = True
         except ValueError as e:
             print("Error while parsing value `{}` for argument '{}'".format(
                 value, self.name))
