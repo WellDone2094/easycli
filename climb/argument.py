@@ -8,7 +8,7 @@ class Argument():
                  name,
                  shortName=None,
                  argType=str,
-                 required=False,
+                 required=None,
                  variable=None,
                  default=None):
         """Constructor.
@@ -35,9 +35,9 @@ class Argument():
         self.name = '--' + name if len(name) > 1 else '-' + name
         self.shortName = shortName if shortName is None else '-' + shortName
         self.argType = argType
-        self.required = required
         self.variable = variable or name
         self.default = default
+        self.required = required or self.default is None
         self.value = None
 
     def __eq__(self, arg):
