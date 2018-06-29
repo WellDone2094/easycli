@@ -21,4 +21,10 @@ class Argument():
         return arg.name == self.name or self.variable == arg.variable
 
     def set_value(self, value):
-        self.value = value
+        try:
+            self.value = self.argType(value)
+        except ValueError as e:
+            print("Error while parsing value `{}` for argument '{}'".format(
+                value, self.name))
+            print(e)
+            exit(1)
