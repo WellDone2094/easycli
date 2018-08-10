@@ -9,6 +9,9 @@ class Command():
         self.f = function
         self.arguments = []
         self.arguments_map = {}
+        self.info = function.__doc__.split('\n')[
+            0] if function.__doc__ is not None else ''
+        self.full_info = function.__doc__ or ''
         if argumentInference:
             self.inferArguments()
 
@@ -58,6 +61,10 @@ class Command():
             arg_index += 1
 
     def run(self, args):
+        if '-h' in args or '--help' in args:
+            self.print_help()
+            return
+
         self.parse_args(args)
         function_args = {arg.variable: arg.value for arg in self.arguments}
 
@@ -72,7 +79,7 @@ class Command():
         pass
 
     def print_help(self):
-        line = '    ' * len(self.groups) + self.name + ' '
+        line = self.info + '\n\n' + self.name + ' '
         for arg in self.arguments:
             if arg.required:
                 line += '{}=<{}> '.format(arg.name, arg.argType.__name__)

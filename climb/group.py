@@ -6,7 +6,7 @@ from climb.command import Command
 class Group():
     """Group."""
 
-    def __init__(self, name=None, lv=0):
+    def __init__(self, name=None, lv=0, info=""):
         """Constructor.
 
         Parameters
@@ -21,6 +21,7 @@ class Group():
         self.parse_tree = {}
         self.lv = lv
         self.commands = set()
+        self.info = info
 
     def add_command(self, cmd):
         """Add CLI command.
@@ -88,8 +89,15 @@ class Group():
 
     def print_help(self):
         """Print help."""
-        if self.name is not None:
-            print('    ' * (self.lv - 1) + self.name)
+        # if self.name is not None:
+        #     print('    ' * (self.lv - 1) + self.name)
+        # for command in self.parse_tree.values():
+        #     command.print_help()
+        if self.info is not None:
+            print(self.info)
+
+        print('Available commands:')
         for command in self.parse_tree.values():
-            command.print_help()
-        print()
+            print('  {:<25} {}'.format(
+                command.name, command.info
+                if command.info is not None else ''))
