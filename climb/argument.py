@@ -9,6 +9,7 @@ class Argument():
                  short_name=None,
                  arg_type=str,
                  n_args=1,
+                 choice=None,
                  required=None,
                  variable=None,
                  default=None):
@@ -22,6 +23,10 @@ class Argument():
             Single character argument, default None.
         arg_type: type
             Argument type, default str.
+        n_args: int or 'N'
+            Number of arguments.
+        choice: list
+            Allowed values.
         required: bool
             If True the argument is required.
         variable: str
@@ -40,6 +45,10 @@ class Argument():
         self.required = required or default is None
         self.value = default
         self.is_used = False
+
+        if choice is not None and not isinstance(choice, list):
+            raise ValueError('choice must be None or list')
+        self.choice = choice
 
         if (isinstance(n_args, int) and n_args > 0) or n_args == 'N':
             self.n_args = n_args
@@ -71,7 +80,11 @@ class Argument():
         self.is_used = True
         for v in values:
             try:
-                values_t.append(self.arg_type(v))
+                v = self.arg_type(v)
+                values_t.append(v)
+                if self.choice is not None and v not in self.choice:
+                    print("Invalid value for {}, allowed values {}".format(
+                        self.name, self.choice))
             except ValueError as e:
                 print(
                     "Error while parsing value `{}` for argument '{}'".format(
