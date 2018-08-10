@@ -85,6 +85,7 @@ class Argument():
                 if self.choice is not None and v not in self.choice:
                     print("Invalid value for {}, allowed values {}".format(
                         self.name, self.choice))
+                    exit(1)
             except ValueError as e:
                 print(
                     "Error while parsing value `{}` for argument '{}'".format(
