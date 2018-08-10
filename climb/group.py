@@ -89,10 +89,6 @@ class Group():
 
     def print_help(self):
         """Print help."""
-        # if self.name is not None:
-        #     print('    ' * (self.lv - 1) + self.name)
-        # for command in self.parse_tree.values():
-        #     command.print_help()
         if self.info is not None:
             print(self.info)
 
