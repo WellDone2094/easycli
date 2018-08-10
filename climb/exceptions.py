@@ -21,3 +21,9 @@ class InvalidCommandNameException(Exception):
     def __init__(self, name):
         self.message = "Command and group name cannot be empty, start with '-' and \
         contain '=' or empty space. {}".format(name)
+
+
+class TooManyArgumentsException(Exception):
+    def __init__(self, expected):
+        self.message = "Invalid number of arguments. Expceted only {} arguments.".format(
+            expected)

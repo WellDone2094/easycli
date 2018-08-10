@@ -1,4 +1,4 @@
-from climb.exceptions import DuplicateArgumentException
+from climb.exceptions import DuplicateArgumentException, TooManyArgumentsException
 
 
 class Command():
@@ -31,6 +31,8 @@ class Command():
         arg_index = 0
         allow_positional = True
         while arg_index < len(args):
+            if arg_index >= len(self.arguments):
+                raise TooManyArgumentsException(len(self.arguments))
             arg = args[arg_index]
 
             # positional argument
@@ -66,7 +68,11 @@ class Command():
             self.print_help()
             return
 
-        self.parse_args(args)
+        try:
+            self.parse_args(args)
+        except TooManyArgumentsException as e:
+            print(e.message)
+            return
         function_args = {arg.variable: arg.value for arg in self.arguments}
 
         for arg in self.arguments:
