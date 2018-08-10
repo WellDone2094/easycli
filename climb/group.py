@@ -6,7 +6,7 @@ from climb.command import Command
 class Group():
     """Group."""
 
-    def __init__(self, name=None, lv=0, info=""):
+    def __init__(self, name=None, lv=0):
         """Constructor.
 
         Parameters
@@ -21,7 +21,7 @@ class Group():
         self.parse_tree = {}
         self.lv = lv
         self.commands = set()
-        self.info = info
+        self.info = 'Sub group'
 
     def add_command(self, cmd):
         """Add CLI command.
