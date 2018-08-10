@@ -22,7 +22,7 @@ class Cli():
         self.commands = set()
         self.default_command = None
         self.parse_tree = {}
-        self.baseGroup = Group()
+        self.base_group = Group()
         self.description = description
 
     def group(self, name):
@@ -91,6 +91,6 @@ class Cli():
 
     def run(self):
         """Parse program arguments."""
-        self.baseGroup.commands = self.commands
-        self.baseGroup.build_parse_tree()
-        self.baseGroup.run(sys.argv[1:])
+        self.base_group.commands = self.commands
+        self.base_group.build_parse_tree()
+        self.base_group.run(sys.argv[1:])

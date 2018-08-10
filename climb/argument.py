@@ -6,8 +6,8 @@ class Argument():
 
     def __init__(self,
                  name,
-                 shortName=None,
-                 argType=str,
+                 short_name=None,
+                 arg_type=str,
                  required=None,
                  variable=None,
                  default=None):
@@ -17,9 +17,9 @@ class Argument():
         ----------
         name: str
             Argument name without '--'.
-        shortName: str
+        short_name: str
             Single character argument, default None.
-        argType: type
+        arg_type: type
             Argument type, default str.
         required: bool
             If True the argument is required.
@@ -30,15 +30,15 @@ class Argument():
             Default value to use if argument is not required. Default None
 
         """
-        assert (shortName is None or len(shortName) == 1)
+        assert (short_name is None or len(short_name) == 1)
 
         self.name = '--' + name if len(name) > 1 else '-' + name
-        self.shortName = shortName if shortName is None else '-' + shortName
-        self.argType = argType
+        self.short_name = short_name if short_name is None else '-' + short_name
+        self.arg_type = arg_type
         self.variable = variable or name
         self.required = required or default is None
         self.value = default
-        self.isUsed = False
+        self.is_used = False
 
     def __eq__(self, arg):
         """Equality operator."""
@@ -54,8 +54,8 @@ class Argument():
 
         """
         try:
-            self.value = self.argType(value)
-            self.isUsed = True
+            self.value = self.arg_type(value)
+            self.is_used = True
         except ValueError as e:
             print("Error while parsing value `{}` for argument '{}'".format(
                 value, self.name))

@@ -2,7 +2,7 @@ from climb.exceptions import DuplicateArgumentException
 
 
 class Command():
-    def __init__(self, function, argumentInference=False):
+    def __init__(self, function, argument_inference=False):
         self.groups = []
         self.name = None
         self.description = None
@@ -12,8 +12,9 @@ class Command():
         self.info = function.__doc__.split('\n')[
             0] if function.__doc__ is not None else ''
         self.full_info = function.__doc__ or ''
-        if argumentInference:
-            self.inferArguments()
+        if argument_inference:
+            pass
+            # self.infer_arguments()
 
     def add_group(self, name):
         self.groups.insert(0, name)
@@ -23,8 +24,8 @@ class Command():
             raise DuplicateArgumentException(self.f, arg)
         self.arguments.insert(0, arg)
         self.arguments_map[arg.name] = arg
-        if arg.shortName is not None:
-            self.arguments_map[arg.shortName] = arg
+        if arg.short_name is not None:
+            self.arguments_map[arg.short_name] = arg
 
     def parse_args(self, args):
         arg_index = 0
@@ -69,7 +70,7 @@ class Command():
         function_args = {arg.variable: arg.value for arg in self.arguments}
 
         for arg in self.arguments:
-            if arg.required and not arg.isUsed:
+            if arg.required and not arg.is_used:
                 print('Missing {}'.format(arg.name))
                 exit(1)
 
