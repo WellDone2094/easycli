@@ -89,9 +89,9 @@ class Command():
         line = self.info + '\n\n' + self.name + ' '
         for arg in self.arguments:
             if arg.required:
-                line += '{}=<{}> '.format(arg.name, arg.argType.__name__)
+                line += '{}=<{}> '.format(arg.name, arg.arg_type.__name__)
             else:
-                line += '[{}]=<{}> '.format(arg.name, arg.argType.__name__)
+                line += '[{}]=<{}> '.format(arg.name, arg.arg_type.__name__)
 
         print(line)
 
