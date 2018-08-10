@@ -28,11 +28,11 @@ def calulate_area_cube(a, b, c):
     print(a * b * c)
 
 
-@cli.command('sum')
-@cli.argument('a', arg_type=float)
-@cli.argument('b', arg_type=float)
-def calulate_sum(a, b):
-    print(a + b)
+@cli.command('sum-mul')
+@cli.argument('num', arg_type=float, n_args='N')
+@cli.argument('times', arg_type=float, n_args=1)
+def calulate_sum_mul(num, times):
+    print(sum(num) * times)
 
 
 cli.run()

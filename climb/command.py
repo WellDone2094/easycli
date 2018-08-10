@@ -1,4 +1,5 @@
 from climb.exceptions import DuplicateArgumentException, TooManyArgumentsException
+from climb.argument import split_args
 
 
 class Command():
@@ -28,40 +29,24 @@ class Command():
             self.arguments_map[arg.short_name] = arg
 
     def parse_args(self, args):
-        arg_index = 0
-        allow_positional = True
-        while arg_index < len(args):
-            if arg_index >= len(self.arguments):
+        pos, kwargs = split_args(args)
+
+        pos_i = 0
+        arg_i = 0
+        while pos_i < len(pos):
+            if arg_i >= len(self.arguments):
                 raise TooManyArgumentsException(len(self.arguments))
-            arg = args[arg_index]
-
-            # positional argument
-            if arg[0] != '-' and allow_positional:
-                self.arguments[arg_index].set_value(arg)
-                arg_index += 1
-                continue
-
-            # disable positional argument when the first non positional argument
-            # is found
-            allow_positional = False
-
-            # key argument. Ex -v or --verbose
-            arg_name = arg.split('=')[0]
-            if arg_name not in self.arguments_map:
-                print('Invalid argument {}'.format(arg_name))
-                exit(1)
-
-            if len(arg.split('=')) > 1:
-                value = arg[arg.find('=') + 1:]
-                self.arguments_map[arg_name].set_value(value)
+            n_args = self.arguments[arg_i].n_args
+            if isinstance(n_args, int):
+                self.arguments[arg_i].set_value(pos[pos_i:pos_i + n_args])
+                pos_i += n_args
             else:
-                arg_index += 1
-                if arg_index >= len(args):
-                    print('Missing value for argument {}'.format(arg))
-                    exit(1)
-                self.arguments_map[arg_name].set_value(args[arg_index])
+                self.arguments[arg_i].set_value(pos[pos_i:])
+                pos_i = len(pos)
+            arg_i += 1
 
-            arg_index += 1
+        for key, value in kwargs.items():
+            self.arguments_map[key].set_value(value)
 
     def run(self, args):
         if '-h' in args or '--help' in args:
