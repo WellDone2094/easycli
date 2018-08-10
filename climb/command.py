@@ -10,9 +10,17 @@ class Command():
         self.f = function
         self.arguments = []
         self.arguments_map = {}
-        self.info = function.__doc__.split('\n')[
-            0] if function.__doc__ is not None else ''
-        self.full_info = function.__doc__ or ''
+
+        doc = []
+        if function.__doc__ is not None:
+            doc = list(
+                filter(lambda x: len(x) > 0, function.__doc__.split('\n')))
+
+        if len(doc) > 0:
+            self.info = doc[0].strip()
+        else:
+            self.info = ''
+
         if argument_inference:
             pass
             # self.infer_arguments()
