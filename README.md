@@ -8,7 +8,7 @@ Easycli is a Python package for creating powerfull CLI. Easycli is inspired by c
 
 Install and update using pip
 
-    pip install git+https://github.com/WellDone2094/climb.git
+    pip install git+https://github.com/WellDone2094/easycli.git
 
 ## Example
 
