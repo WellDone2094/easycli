@@ -1,6 +1,6 @@
-import climb
+import easycli
 
-cli = climb.Cli()
+cli = easycli.Cli()
 
 
 @cli.group('area')

@@ -1,5 +1,5 @@
-from climb.exceptions import DuplicateArgumentException, TooManyArgumentsException
-from climb.argument import split_args
+from easycli.exceptions import DuplicateArgumentException, TooManyArgumentsException
+from easycli.argument import split_args
 
 
 class Command():

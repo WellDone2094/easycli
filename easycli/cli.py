@@ -1,10 +1,10 @@
 """Cli class."""
 import sys
 
-from climb.argument import Argument
-from climb.command import Command
-from climb.group import Group
-from climb.utils import validate_command_name
+from easycli.argument import Argument
+from easycli.command import Command
+from easycli.group import Group
+from easycli.utils import validate_command_name
 
 
 class Cli():

@@ -1,6 +1,6 @@
 """CLI command group."""
-from climb.exceptions import CommandNameConflictException
-from climb.command import Command
+from easycli.exceptions import CommandNameConflictException
+from easycli.command import Command
 
 
 class Group():

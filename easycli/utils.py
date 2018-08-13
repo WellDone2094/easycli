@@ -1,4 +1,4 @@
-from climb.exceptions import InvalidCommandNameException
+from easycli.exceptions import InvalidCommandNameException
 
 
 def validate_command_name(name):
