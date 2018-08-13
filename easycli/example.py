@@ -17,8 +17,9 @@ def calulate_traingle_area(base, height):
 @cli.argument('width', 'w', arg_type=float, variable='b', default=1)
 @cli.argument('depth', 'd', arg_type=float, variable='c', default=1)
 def calulate_area_cube(a, b, c):
-    """Calculate area of a cube 
-    
+    """
+    Calculate area of a cube
+
     Arguments
     ---------
     a: int
@@ -33,6 +34,12 @@ def calulate_area_cube(a, b, c):
 @cli.argument('times', arg_type=float, n_args=1)
 def calulate_sum_mul(num, times):
     print(sum(num) * times)
+
+
+@cli.command('test')
+@cli.argument('a', arg_type=str, choice=['a', 'b', 'c'], n_args='N')
+def test(a):
+    print(a)
 
 
 cli.run()
