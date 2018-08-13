@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="easycli",
-    version='0.1',
+    version='0.1.0',
     author="Andrea Benfatti",
     author_email="welldone2094@gmail.com",
     description="Climb is a library that allow you to build CLI tools.",
