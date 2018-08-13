@@ -1,8 +1,8 @@
-# Climb
+# Easycli
 
-## What is Climb
+## What is Easycli
 
-Climb is a Python package for creating powerfull CLI. Climb is inspired by command line tools like Git and Kubectl where commands are groupped together.
+Easycli is a Python package for creating powerfull CLI. Easycli is inspired by command line tools like Git and Kubectl where commands are groupped together.
 
 ## Installation
 
@@ -12,12 +12,12 @@ Install and update using pip
 
 ## Example
 
-This is all you need to know to write a simple CLI using Climb
+This is all you need to know to write a simple CLI using Easycli
 
 ```
-import climb
+import easycli
 
-cli = climb.Cli()
+cli = easycli.Cli()
 
 
 @cli.group('area')
