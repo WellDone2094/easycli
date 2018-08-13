@@ -4,7 +4,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="climb",
+    name="easycli",
     version='0.1',
     author="Andrea Benfatti",
     author_email="welldone2094@gmail.com",
